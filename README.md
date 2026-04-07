@@ -1,49 +1,44 @@
-# PROYECTO_FINAL_DIGITALES-3
-Proyecto final de la materia Sistemas digitales 3, contiene la informacion y codigos necesarios para implementar  un dispositivo biomedico capaz establecer una higiene postural.
-\section{Descripción del Problema}
-El aumento del trabajo sedentario y el uso prolongado de dispositivos electrónicos ha derivado en una crisis de salud ergonómica global. El cuerpo humano no está diseñado para mantener posiciones estáticas durante periodos extensos, lo que genera dos problemas críticos interconectados:
+# ErgoAlert: Sistema de Monitoreo Cinemático y Salud Vascular
 
-\begin{itemize}
-    \item \textbf{Degradación Biomecánica:} La postura ``colapsada'' somete a la columna vertebral a cargas mecánicas desproporcionadas. Una inclinación cervical de $60^\circ$ ejerce una presión de hasta $27$ kg sobre las vértebras, provocando hipercifosis, hernias discales y el síndrome de \textit{Tech-Neck}.
-    \item \textbf{Compromiso Vascular y Metabólico:} El estatismo postural prolongado comprime los vasos sanguíneos principales y reduce la eficiencia del retorno venoso. Esto disminuye la perfusión periférica y la oxigenación cerebral, afectando el rendimiento cognitivo y la salud cardiovascular a largo plazo.
-\end{itemize}
+## 📋 Análisis de Requerimientos
 
-\textbf{ErgoAlert} busca cerrar la brecha tecnológica actual mediante un sistema de tres nodos inerciales que analizan la cadena cinemática completa, permitiendo una calibración personalizada y una intervención activa mediante ejercicios sugeridos vía Wi-Fi.
+### Requerimientos Funcionales (RF)
+* **RF1 - Adquisición Multi-Nodo:** Captura simultánea de 3 sensores MPU-6050 vía I2C (Cervical, Torácico, Lumbar).
+* **RF2 - Fusión de Sensores:** Filtro complementario en RP2350 para cálculo de *Pitch* y *Roll* a 100 Hz.
+* **RF3 - Calibración Biométrica:** Captura de postura neutra personalizada por usuario.
+* **RF4 - Alertas Escalonadas:** Buzzer local (15s) y notificación Wi-Fi (60s) ante mala postura sostenida.
+* **RF5 - Intervención Activa:** Visualización de ejercicios correctivos según la zona de falla detectada.
 
-\section{Análisis de Costos y Presupuesto}
-El análisis de costos iniciales es fundamental para evaluar la viabilidad económica del sistema \textbf{ErgoAlert}. A continuación, se detallan los gastos previstos para el desarrollo del prototipo funcional.
+### Requerimientos No Funcionales (RNF)
+* **RNF1 - Concurrencia:** Arquitectura *Dual-Core* (Core 1: Filtros | Core 0: Wi-Fi/Comunicaciones).
+* **RNF2 - Precisión Angular:** Error máximo tolerable de $\pm 2^\circ$.
+* **RNF3 - Latencia:** Respuesta del sistema inferior a 50 ms.
+* **RNF4 - Autonomía:** Operación de 8 horas continuas con batería LiPo de 500 mAh.
 
-\subsection{Hardware y Componentes Principales}
-\begin{table}[h!]
-\centering
-\begin{tabular}{|l|c|r|r|}
-\hline
-\textbf{Componente} & \textbf{Cantidad} & \textbf{V. Unitario (COP)} & \textbf{Total (COP)} \\ \hline
-Raspberry Pi Pico 2 W & 1 & \$75,000 & \$75,000 \\ \hline
-Sensores MPU-6050 & 3 & \$18,000 & \$54,000 \\ \hline
-Batería LiPo 3.7V 500mAh & 1 & \$25,000 & \$25,000 \\ \hline
-Módulo de carga y elevador & 1 & \$12,000 & \$12,000 \\ \hline
-Buzzer Activo y LED RGB & 1 & \$5,500 & \$5,500 \\ \hline
-Multiplexor I2C TCA9548A & 1 & \$15,000 & \$15,000 \\ \hline
-\multicolumn{3}{|l|}{\textbf{Subtotal Hardware}} & \textbf{\$186,500} \\ \hline
-\end{tabular}
-\caption{Costos de componentes electrónicos.}
-\end{table}
+---
 
-\subsection{Diseño, Prototipado y Herramientas}
-\begin{itemize}
-    \item \textbf{Fabricación de PCB:} \$120,000 (Manufactura profesional en fibra de vidrio).
-    \item \textbf{Carcasa e Impresión 3D:} \$60,000 (Diseño ergonómico para los 3 nodos).
-    \item \textbf{Insumos y Cableado:} \$55,000 (Cables flexibles, soldadura y conectores).
-\end{itemize}
+## 🧪 Plan de Pruebas y Validación
+1. **Validación Vascular:** Medición de $SpO_2$ y frecuencia cardíaca en postura colapsada vs. corregida.
+2. **Inmunidad al Ruido:** Estabilidad del algoritmo ante movimientos cotidianos (evitar falsos positivos).
+3. **Latencia Wi-Fi:** Tiempo de llegada de notificación remota (Meta: < 200 ms).
+4. **Calibración:** Validación con diferentes anatomías para confirmar independencia de la estatura.
 
-\subsection{Resumen de Inversión}
-El costo total estimado para la implementación del prototipo es de \textbf{\$421,500 COP}.
+---
 
-\section{Estrategia de Cobertura de Costos}
-Para garantizar la ejecución del proyecto, se han definido las siguientes fuentes de financiamiento y optimización de recursos:
-\begin{enumerate}
-    \item \textbf{Financiamiento Directo:} El costo total será cubierto de forma equitativa por los integrantes del equipo.
-    \item \textbf{Infraestructura Universitaria:} Se reducirán gastos operativos utilizando las estaciones de soldadura, osciloscopios y herramientas de diseño (Altium Designer) disponibles en los laboratorios de la institución.
-    \item \textbf{Validación de Concepto:} El costo se justifica por el uso del microcontrolador RP2350, que permite el procesamiento concurrente de filtros de fusión de sensores y la gestión de la pila TCP/IP, capacidades superiores a las de correctores posturales comerciales de bajo costo.
-\end{enumerate}
+## 💰 Análisis de Costos y Viabilidad
+
+### Presupuesto Detallado
+| Categoría | Componente | Cantidad | Unitario (COP) | Total (COP) |
+| :--- | :--- | :---: | :---: | :---: |
+| **Hardware** | Raspberry Pi Pico 2 W | 1 | $75,000 | $75,000 |
+| **Hardware** | MPU-6050 (IMU) | 3 | $18,000 | $54,000 |
+| **Hardware** | Batería LiPo 3.7V | 1 | $25,000 | $25,000 |
+| **Hardware** | Módulos de Potencia | 1 | $12,000 | $12,000 |
+| **Hardware** | Buzzer / LED RGB | 1 | $5,500 | $5,500 |
+| **Fabricación** | PCB Manufactura | 1 | $40,000 | $40,000 |
+| **Fabricación** | Carcasa (Impresión 3D) | 3 | $20,000 | $60,000 |
+| **Fabricación** | Cableado y Conectores | -- | $30,000 | $30,000 |
+| **TOTAL** | | | | **$316,500** |
+
+### Estrategia de Financiamiento
+Los costos serán cubiertos mediante inversión equitativa del equipo. Se utilizará la infraestructura de laboratorios universitarios para el ensamble y validación con instrumentación profesional (Osciloscopio, Analizador Lógico).
